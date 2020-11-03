@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Работа</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    {% include 'base/link.html' %}
+    {% block links %}{% endblock %}
+</head>
+
+<body>
+<div class="container">
+    <div class="row px-2 justify-content-between align-items-center menu h3 text-center">
+        <div class="col-md-auto py-3 logo">
+            <a href="/">Главная</a>
+        </div>
+        <div class="col-md-auto py-3">
+            <div class="my-0 py-2"><a href="/contact/">Счет фактуры</a></div>
+        </div>
+        <div class="col-md-auto py-3">
+            <div class="my-0"><a href="">Список работ</a></div>
+        </div>
+    </div>
+</div>
+
+{% block header %}
+
+    <div class="container">
+        <div class="row justify-content-center my-4">
+            <div class="col-auto h4">
+                <a class="mx-4" href="{{ settings.youtube_link }}" target="_blank">
+                    <i class="fab fa-youtube" aria-hidden="true"></i>&nbsp;YouTube</a>
+            </div>
+            {#            <div class="col-auto">#}
+            {#                <a class="mx-4" href="{{ settings.patreon_link }}" target="_blank"><i class="fab fa-patreon"#}
+            {#                                                                                      aria-hidden="true"></i>&nbsp;Patreon</a>#}
+            {#            </div>#}
+            <div class="col-auto">
+                <a class="mx-4" href="{{ settings.telegram_link }}" target="_blank"><i class="fab fa-telegram"
+                                                                                       aria-hidden="true"></i>&nbsp;Telegram</a>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block content %}{% endblock %}
+
+
+</body>
+{% include 'blog/base/js.html' %}
+{% block scripts %}{% endblock %}
+</html>

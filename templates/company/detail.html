@@ -1,0 +1,20 @@
+{% extends 'base/index.html' %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row mx-5">
+            <div class="col-4 text-center">
+            <form class="form-group" method="post" action="{% url 'company:detail' id=company.id %}">
+                {% csrf_token %}
+                <input class="form-control" type="text" value="{{ company.name }}" name="name">
+                <br>
+                <input class="form-control" type="text" value="{{ company.address }}" name="address">
+                <br>
+                <input class="form-control" type="text" value="{{ company.unn }}" name="unn">
+                <br>
+                <button class="btn btn-dark">Обновить</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

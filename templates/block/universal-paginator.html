@@ -1,0 +1,62 @@
+{% if paginator_list.paginator.num_pages > 1 %}
+    <ul class="pagination">
+
+        <li class="page-item {% if not paginator_list.has_previous %}disabled{% endif %}">
+            <a class="page-link"
+                    {% if paginator_list.has_previous %}
+               href="{{ current_page_url }}?page=1"
+                    {% endif %}>
+                <i class="fas fa-angle-double-left"></i>
+            </a>
+        </li>
+        <li class="page-item {% if not paginator_list.has_previous %}disabled{% endif %}">
+            <a class="page-link"
+                    {% if paginator_list.has_previous %}
+               href="{{ current_page_url }}?page={{ paginator_list.previous_page_number }}"
+                    {% endif %}>
+                <i class="fas fa-angle-left"></i>
+            </a>
+        </li>
+
+        {% if paginator_list.number|add:'-4' > 1 %}
+            <li class="page-item">
+                <a class="page-link"
+                   href="{{ current_page_url }}?page={{ paginator_list.number|add:'-5' }}">&hellip;</a>
+            </li>
+        {% endif %}
+
+        {% for num in paginator_list.paginator.page_range %}
+            {% if num > paginator_list.number|add:'-5' and num < paginator_list.number|add:'5' %}
+                <li class="page-item {% if num == paginator_list.number %}active{% endif %}">
+                    <a class="page-link"
+                       href="{{ current_page_url }}?page={{ num }}">{{ num }}</a>
+                </li>
+            {% endif %}
+        {% endfor %}
+
+        {% if paginator_list.paginator.num_pages > paginator_list.number|add:'4' %}
+            <li>
+                <a class="page-link"
+                   href="{{ current_page_url }}?page={{ paginator_list.number|add:'5' }}">&hellip;</a>
+            </li>
+        {% endif %}
+
+        <li class="page-item {% if not paginator_list.has_next %}disabled{% endif %}">
+            <a class="page-link"
+                    {% if paginator_list.has_next %}
+               href="{{ current_page_url }}?page={{ paginator_list.next_page_number }}"
+                    {% endif %}>
+                <i class="fas fa-angle-right"></i>
+            </a>
+        </li>
+        <li class="page-item {% if not paginator_list.has_next %}disabled{% endif %}">
+            <a class="page-link"
+                    {% if paginator_list.has_next %}
+               href="{{ current_page_url }}?page={{ paginator_list.paginator.num_pages }}"
+                    {% endif %}>
+                <i class="fas fa-angle-double-right"></i>
+            </a>
+        </li>
+
+    </ul>
+{% endif %}
