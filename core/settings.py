@@ -1,4 +1,5 @@
 import os
+from decimal import Decimal
 
 import environ
 from django.utils.translation import ugettext_lazy as _
@@ -100,3 +101,5 @@ LOGOUT_URL = '/api/v1/logout'
 
 REDIS_HOST = env("REDIS_HOST", default="redis_db")
 REDIS_PORT = env("REDIS_PORT", default="6379")
+
+TWO_PLACES = Decimal(10) ** -2
