@@ -96,6 +96,8 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
 
+FIXTURE_DIRS = [BASE_DIR, ]
+
 LOGIN_URL = '/api/v1/login'
 LOGOUT_URL = '/api/v1/logout'
 
