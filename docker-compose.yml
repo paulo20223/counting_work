@@ -20,7 +20,7 @@ services:
     volumes:
       - .:/code
     ports:
-      - "80:8115"
+      - "8115:8115"
     depends_on:
       - db
     networks:

@@ -1,3 +1,6 @@
+from tempfile import SpooledTemporaryFile
+from wsgiref.util import FileWrapper
+
 from django.http import HttpResponse
 from django.shortcuts import redirect, get_object_or_404, render
 from django.template.loader import render_to_string
@@ -45,9 +48,17 @@ class InvoiceDetailView(AbsView):
 class InvoiceFileView(AbsView):
 
     def get(self, request, **kwargs):
-        context = {'invoice': get_object_or_404(Invoice, pk=kwargs.get("key")),
-                   'all_companies': Company.objects.all()}
+        invoice = get_object_or_404(Invoice, pk=kwargs.get("key"))
+        file_name = f"{invoice.due_date.strftime('%Y_%m_%d')}_{invoice.company_from.name.replace(' ', '_')}"
+
+        context = {'invoice': invoice}
         html = HTML(string=render_to_string('invoice/pdf.html', context=context, request=request))
         main_doc = html.render()
         pdf = main_doc.write_pdf()
-        return HttpResponse(pdf, content_type='application/pdf')
+        with SpooledTemporaryFile(mode='wb') as output_file:
+            output_file.write(pdf)
+            output_file.seek(0)
+            response = HttpResponse(FileWrapper(output_file), content_type='application/pdf')
+            response['Content-Disposition'] = f'inline; ' \
+                                              f'filename={file_name}.pdf'
+            return response

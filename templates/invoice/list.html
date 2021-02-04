@@ -2,16 +2,16 @@
 
 {% block content %}
     <div class="container-fluid">
-        <div class="row">
+        <div class="row d-flex w-100" style="justify-content: space-evenly;">
             {% for invoice in invoices %}
-                <div class="col-4 text-center">
+                <div class="col-auto text-center my-4 py-4 border-2" style="box-shadow: 10px 10px 30px #ccc; width: 30%">
                     <a href="{% url "invoice:detail" key=invoice.key %}"
                        class="my-2">
-                        <h4 class="mb-0 px-2 text-dark title-post d-inline mx-2">{{ invoice.key }}</h4>
+                        <h4 class="mb-0 px-2 text-dark title-post d-inline">{{ invoice.due_date }}</h4>
                         <br>
-                        <h4 class="mb-0 px-2 text-dark title-post d-inline mx-2">{{ invoice.company_from }}</h4>
+                        <h4 class="mb-0 px-2 text-dark title-post d-inline">{{ invoice.company_from }}</h4>
                         <br>
-                        <h4 class="mb-0 px-2 text-dark title-post d-inline mx-2">{{ invoice.company_to }}</h4>
+                        <h4 class="mb-0 px-2 text-dark title-post d-inline">{{ invoice.company_to }}</h4>
                     </a>
                 </div>
             {% endfor %}
