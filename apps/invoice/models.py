@@ -18,6 +18,9 @@ class Invoice(AbsModel):
     def total(self):
         return self.items.aggregate(total=Sum(F('hour') * F('cost_by_hour')))['total'].quantize(TWO_PLACES)
 
+    def total_hours(self):
+        return self.items.aggregate(total_hours=Sum(F('hour')))['total_hours']
+
     class Meta:
         verbose_name = 'Счет фактура'
         verbose_name_plural = 'Счет фактуры'
@@ -38,7 +41,6 @@ class WorkExample(AbsModel):
 
 
 class WorkItem(AbsModel):
-
     name = models.CharField("Название работы", max_length=1000)
     hour = models.DecimalField("Количество часов", decimal_places=2, max_digits=100)
     cost_by_hour = models.DecimalField("Цена за час", decimal_places=2, max_digits=100, blank=True)
