@@ -6,6 +6,8 @@ from apps.invoice.models import WorkExample, WorkItem, Invoice
 
 
 class WorkInline(admin.TabularInline):
+    fields = ("name", "hour", "cost_by_hour", "invoice")
+    readonly_fields = ("price",)
     model = WorkItem
 
 

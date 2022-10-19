@@ -6,6 +6,9 @@ DEFAULT_DB=postgres
 cs: ## make collect static
 	docker exec -it ${WEB_CONTAINER_NAME} python manage.py collectstatic
 
+cdD:
+	python manage.py collectstatic
+
 mkm: ## make migrations
 	docker exec -it ${WEB_CONTAINER_NAME} python manage.py makemigrations
 

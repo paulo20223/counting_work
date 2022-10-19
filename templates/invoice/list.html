@@ -1,0 +1,24 @@
+{% extends 'base/index.html' %}
+
+{% block content %}
+    <div class="md:grid grid-cols-3 xl:grid-cols-4 gap-4 items-center max-w-screen-xl m-auto">
+        {% for invoice in invoices %}
+            <div class="m-5 p-5 border h-full rounded-2xl shadow-2xl">
+                <a target="_blank" href="{% url "invoice:pdf" key=invoice.key %}"
+                   class="my-2">
+                    <p class="font-black pb-3 text-center">Invoice #{{ invoice.key }}</p>
+                    <div>
+                        <p class="mb-0 px-2 text-dark title-post d-inline">{{ invoice.due_date }}</p>
+                        <br>
+                        <p class="mb-0 px-2 text-dark title-post d-inline">{{ invoice.company_from }}</p>
+                        <br>
+                        <p class="mb-0 px-2 text-dark title-post d-inline">{{ invoice.company_to }}</p>
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="row justify-content-center my-4 text-primary">
+        {% include "block/universal-paginator.html" with paginator_list=companys %}
+    </div>
+{% endblock %}

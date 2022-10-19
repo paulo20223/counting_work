@@ -1,4 +1,5 @@
 import os
+from _decimal import Decimal
 
 import environ
 from django.utils.translation import ugettext_lazy as _
@@ -7,7 +8,7 @@ from core.utils.base import get_settings_path
 
 env = environ.Env()
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-CONFIG_DIR = os.path.dirname(os.path.abspath(__file__))
+CONFIG_DIR = os.path.join(BASE_DIR, 'config')
 environ.Env.read_env(get_settings_path(CONFIG_DIR, ('production.env', 'sandbox.env', 'develop.env')))
 
 VERSION = '0.0.1'
@@ -22,6 +23,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_filters',
     'core',
+    "compressor",
     'apps.company',
     'apps.invoice'
 ]
@@ -91,8 +93,19 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 ALLOWED_UPLOAD_IMAGES = ('png', 'bmp', 'jpeg')
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'compressor.finders.CompressorFinder',
+)
+COMPRESS_PRECOMPILERS = (
+    ('text/x-scss', 'django_libsass.SassCompiler'),
+)
+
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "static"),
+    ('assets', os.path.join(BASE_DIR, 'assets/')),
+    ('node_modules', os.path.join(BASE_DIR, 'node_modules/')),
 )
 
 LOGIN_URL = '/api/v1/login'
@@ -100,3 +113,5 @@ LOGOUT_URL = '/api/v1/logout'
 
 REDIS_HOST = env("REDIS_HOST", default="redis_db")
 REDIS_PORT = env("REDIS_PORT", default="6379")
+TWO_PLACES = Decimal(10) ** -2
+

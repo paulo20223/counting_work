@@ -35,3 +35,8 @@ webpack-stats-prod.json
 /media
 # /dist
 /iiko/log/*
+config/production.env
+config/sandbox.env
+node_modules
+package-lock.json
+docker-compose.production.yml
