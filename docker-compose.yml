@@ -13,22 +13,5 @@ services:
       POSTGRES_PASSWORD: "password"
 
 
-#  web:
-#    build: .
-#    command: bash -c "python manage.py makemigrations core && python manage.py makemigrations &&  python manage.py migrate && python manage.py collectstatic --noinput && python manage.py runserver 0.0.0.0:8114"
-#    container_name: work-web
-#    volumes:
-#      - .:/code
-#    ports:
-#      - "8114:8114"
-#    depends_on:
-#      - db
-#    networks:
-#      - main
-#    environment:
-#      DJANGO_SETTINGS_MODULE: "core.settings"
-#      DEBUG: "True"
-
-
 networks:
   main:
